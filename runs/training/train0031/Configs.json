@@ -1,0 +1,160 @@
+{
+    "trainer": "RealEstateTrainerTester05/Trainer04",
+    "train_num": 31,
+    "description": "Main Model: 4 views",
+    "database": "RealEstate10K",
+    "database_dirpath": "databases/RealEstate10K/data",
+    "data_loader": {
+        "data_loader_name": "RealEstateDataLoader01",
+        "data_preprocessor_name": "DataPreprocessor01",
+        "train_set_num": 4,
+        "scene_nums": [
+            0
+        ],
+        "recenter_camera_poses": true,
+        "bd_factor": 0.75,
+        "spherify": false,
+        "ndc": true,
+        "batching": true,
+        "downsampling_factor": 1,
+        "num_rays": 2048,
+        "precrop_fraction": 1,
+        "precrop_iterations": -1,
+        "sparse_depth": {
+            "dirname": "DE04",
+            "num_rays": 2048
+        }
+    },
+    "model": {
+        "name": "SimpleNeRF01",
+        "coarse_mlp": {
+            "num_samples": 64,
+            "netdepth": 8,
+            "netwidth": 256,
+            "points_positional_encoding_degree": 10,
+            "views_positional_encoding_degree": 4,
+            "use_view_dirs": true,
+            "view_dependent_rgb": true,
+            "predict_visibility": false
+        },
+        "fine_mlp": {
+            "num_samples": 128,
+            "netdepth": 8,
+            "netwidth": 256,
+            "points_positional_encoding_degree": 10,
+            "views_positional_encoding_degree": 4,
+            "use_view_dirs": true,
+            "view_dependent_rgb": true,
+            "predict_visibility": false
+        },
+        "points_augmentation": {
+            "coarse_mlp": {
+                "netdepth": 8,
+                "netwidth": 256,
+                "points_positional_encoding_degree": 10,
+                "points_sigma_positional_encoding_degree": 3,
+                "views_positional_encoding_degree": 4,
+                "use_view_dirs": true,
+                "view_dependent_rgb": true,
+                "predict_visibility": false
+            }
+        },
+        "views_augmentation": {
+            "coarse_mlp": {
+                "netdepth": 8,
+                "netwidth": 256,
+                "points_positional_encoding_degree": 10,
+                "use_view_dirs": false,
+                "view_dependent_rgb": false,
+                "predict_visibility": false
+            }
+        },
+        "chunk": 4096,
+        "lindisp": false,
+        "netchunk": 16384,
+        "perturb": true,
+        "raw_noise_std": 1.0,
+        "white_bkgd": false
+    },
+    "losses": [
+        {
+            "name": "MSE01",
+            "weight": 1
+        },
+        {
+            "name": "SparseDepthMSE01",
+            "weight": 0.1
+        },
+        {
+            "name": "MSE02",
+            "weight": 1
+        },
+        {
+            "name": "SparseDepthMSE02",
+            "weight": 0.1
+        },
+        {
+            "name": "MSE03",
+            "weight": 1
+        },
+        {
+            "name": "SparseDepthMSE03",
+            "weight": 0.1
+        },
+        {
+            "name": "PointsAugmentationDepthMSE02",
+            "iter_weights": {
+                "0": 0,
+                "10000": 0.1
+            },
+            "rmse_threshold": 0.1,
+            "patch_size": [
+                5,
+                5
+            ]
+        },
+        {
+            "name": "ViewsAugmentationDepthMSE02",
+            "iter_weights": {
+                "0": 0,
+                "10000": 0.1
+            },
+            "rmse_threshold": 0.1,
+            "patch_size": [
+                5,
+                5
+            ]
+        },
+        {
+            "name": "CoarseFineConsistencyLoss02",
+            "iter_weights": {
+                "0": 0,
+                "10000": 0.1
+            },
+            "rmse_threshold": 0.1,
+            "patch_size": [
+                5,
+                5
+            ]
+        }
+    ],
+    "optimizer": {
+        "lr_decayer_name": "NeRFLearningRateDecayer01",
+        "lr_initial": 0.0005,
+        "lr_decay": 250,
+        "beta1": 0.9,
+        "beta2": 0.999
+    },
+    "resume_training": true,
+    "sub_batch_size": 2048,
+    "num_iterations": 100000,
+    "validation_interval": 1000000,
+    "validation_chunk_size": 65536,
+    "validation_save_loss_maps": false,
+    "model_save_interval": 10000,
+    "mixed_precision_training": false,
+    "seed": 748,
+    "device": [
+        0
+    ]
+}

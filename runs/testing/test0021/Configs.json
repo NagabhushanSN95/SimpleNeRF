@@ -1,0 +1,20 @@
+{
+    "Tester": "RealEstateTrainerTester05/Tester02",
+    "test_num": 21,
+    "test_set_num": 3,
+    "train_num": 21,
+    "model_name": "Model_Iter100000.tar",
+    "database_name": "RealEstate10K",
+    "database_dirpath": "RealEstate10K/data",
+    "qa_masks_dirname": "VM03",
+    "scene_nums": [
+        0,
+        1,
+        3,
+        4,
+        6
+    ],
+    "device": [
+        0
+    ]
+}
