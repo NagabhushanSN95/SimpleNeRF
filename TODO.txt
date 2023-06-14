@@ -1,5 +1,4 @@
 - decide on which loss function to release
-- delete RegNeRF/FreeNeRF check in depth QA
 - update Last Modified, authors
 - add QA scores files
 - add gen configs
