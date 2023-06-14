@@ -209,7 +209,7 @@ def start_qa(pred_videos_dirpath: Path, gt_depth_dirpath: Path, database_dirpath
 
 def demo1():
     root_dirpath = Path('../../../../')
-    pred_videos_dirpath = root_dirpath / 'runs/testing/test0001'
+    pred_videos_dirpath = root_dirpath / 'runs/testing/test0011'
     database_dirpath = root_dirpath / 'data/databases/RealEstate10K/data'
     gt_depth_dirpath = root_dirpath / 'data/DenseNeRF/runs/testing/test0001'
     frames_data_path = database_dirpath / 'train_test_sets/set02/TestVideosData.csv'

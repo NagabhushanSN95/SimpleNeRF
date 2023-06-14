@@ -192,7 +192,7 @@ def start_qa(pred_videos_dirpath: Path, database_dirpath: Path, frames_datapath:
 
 def demo1():
     root_dirpath = Path('../../../../')
-    pred_videos_dirpath = root_dirpath / 'runs/testing/test0011'
+    pred_videos_dirpath = root_dirpath / 'runs/testing/test1011'
     database_dirpath = root_dirpath / 'data/databases/NeRF_LLFF/data'
     frames_data_path = database_dirpath / 'train_test_sets/set02/TestVideosData.csv'
     pred_frames_dirname = 'predicted_frames'
