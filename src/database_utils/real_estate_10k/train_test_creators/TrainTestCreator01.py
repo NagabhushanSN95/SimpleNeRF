@@ -34,10 +34,10 @@ def create_train_test_set(configs: dict):
 
     set_num = configs['set_num']
     scene_nums = configs['scene_nums']
-    num_extrapolation_frames = configs['num_extrapolation_frames']
 
     train_views_density = configs['train_views_density']
     if train_views_density == 'sparse':
+        num_extrapolation_frames = configs['num_extrapolation_frames']
         train_frame_nums = [10, 20, 30, 0, 40]
         test_frame_nums = list(set(range(50)) - set(train_frame_nums))
         train_frame_nums = sorted(train_frame_nums[:configs['num_train_frames']])

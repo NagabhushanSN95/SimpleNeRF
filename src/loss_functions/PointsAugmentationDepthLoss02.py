@@ -10,7 +10,7 @@ from pathlib import Path
 import torch.nn.functional as F
 
 from loss_functions.LossFunctionParent01 import LossFunctionParent
-from utils import CommonUtils02 as CommonUtils
+from utils import CommonUtils01 as CommonUtils
 
 this_filepath = Path(__file__)
 this_filename = this_filepath.stem

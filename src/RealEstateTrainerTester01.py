@@ -354,6 +354,22 @@ def demo1a():
                     'name': 'SparseDepthMSE01',
                     'weight': 0.1,
                 },
+                {
+                    'name': 'MSE02',
+                    'weight': 1,
+                },
+                {
+                    'name': 'SparseDepthMSE02',
+                    'weight': 0.1,
+                },
+                {
+                    'name': 'MSE03',
+                    'weight': 1,
+                },
+                {
+                    'name': 'SparseDepthMSE03',
+                    'weight': 0.1,
+                },
                 # {
                 #     'name': 'VisibilityLoss01',
                 #     'weight': 0.1,
@@ -571,6 +587,22 @@ def demo1b():
                     'name': 'SparseDepthMSE01',
                     'weight': 0.1,
                 },
+                {
+                    'name': 'MSE02',
+                    'weight': 1,
+                },
+                {
+                    'name': 'SparseDepthMSE02',
+                    'weight': 0.1,
+                },
+                {
+                    'name': 'MSE03',
+                    'weight': 1,
+                },
+                {
+                    'name': 'SparseDepthMSE03',
+                    'weight': 0.1,
+                },
                 # {
                 #     'name': 'VisibilityLoss01',
                 #     'weight': 0.1,
@@ -786,6 +818,22 @@ def demo1c():
                 },
                 {
                     'name': 'SparseDepthMSE01',
+                    'weight': 0.1,
+                },
+                {
+                    'name': 'MSE02',
+                    'weight': 1,
+                },
+                {
+                    'name': 'SparseDepthMSE02',
+                    'weight': 0.1,
+                },
+                {
+                    'name': 'MSE03',
+                    'weight': 1,
+                },
+                {
+                    'name': 'SparseDepthMSE03',
                     'weight': 0.1,
                 },
                 # {
