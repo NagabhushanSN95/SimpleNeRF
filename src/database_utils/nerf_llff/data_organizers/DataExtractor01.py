@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # Extracts camera intrinsics and extrisics
 # Author: Nagabhushan S N
-# Last Modified: 29/03/2023
+# Last Modified: 15/06/2023
 
 import datetime
 import os

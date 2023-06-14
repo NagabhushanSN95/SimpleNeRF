@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # Depth MSE loss function between Main Coarse NeRF and Views Augmentation.
 # Author: Nagabhushan S N
-# Last Modified: 02/06/2023
+# Last Modified: 15/06/2023
 
 import torch
 from torch import Tensor

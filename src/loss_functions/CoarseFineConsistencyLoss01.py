@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # MSE loss between coarse and fine depths for main model.
 # Author: Nagabhushan S N
-# Last Modified: 02/06/2023
+# Last Modified: 15/06/2023
 
 import torch
 from torch import Tensor

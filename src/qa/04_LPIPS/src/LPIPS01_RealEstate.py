@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # LPIPS measure between predicted frames and ground truth frames
 # Author: Nagabhushan S N
-# Last Modified: 29/03/2023
+# Last Modified: 15/06/2023
 
 import argparse
 import datetime

@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # NeRF that supports points and views augmentations.
 # Author: Nagabhushan S N
-# Last Modified: 29/03/2023
+# Last Modified: 15/06/2023
 
 import numpy
 import torch

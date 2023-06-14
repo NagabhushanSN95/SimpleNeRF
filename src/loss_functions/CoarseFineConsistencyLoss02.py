@@ -2,7 +2,7 @@
 # Depth MSE loss function between Main Coarse NeRF and Main Fine NeRF. Reprojection error (patch-wise) is employed
 # to determine the more accurate depth estimate.
 # Author: Nagabhushan S N
-# Last Modified: 05/06/2023
+# Last Modified: 15/06/2023
 
 import torch
 from torch import Tensor
