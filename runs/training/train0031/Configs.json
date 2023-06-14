@@ -1,5 +1,5 @@
 {
-    "trainer": "RealEstateTrainerTester05/Trainer04",
+    "trainer": "RealEstateTrainerTester01/Trainer01",
     "train_num": 31,
     "description": "Main Model: 4 views",
     "database": "RealEstate10K",

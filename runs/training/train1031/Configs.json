@@ -1,5 +1,5 @@
 {
-    "trainer": "NerfLlffTrainerTester05/Trainer04",
+    "trainer": "NerfLlffTrainerTester01/Trainer01",
     "train_num": 1031,
     "description": "Main Model: 4 views",
     "database": "NeRF_LLFF",
