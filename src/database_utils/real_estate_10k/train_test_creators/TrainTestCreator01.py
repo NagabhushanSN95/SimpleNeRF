@@ -34,18 +34,24 @@ def create_train_test_set(configs: dict):
 
     set_num = configs['set_num']
     scene_nums = configs['scene_nums']
+    num_extrapolation_frames = configs['num_extrapolation_frames']
 
     train_views_density = configs['train_views_density']
     if train_views_density == 'sparse':
         train_frame_nums = [10, 20, 30, 0, 40]
         test_frame_nums = list(set(range(50)) - set(train_frame_nums))
         train_frame_nums = sorted(train_frame_nums[:configs['num_train_frames']])
+        test_frame_nums = [f for f in test_frame_nums if
+                           ((f > min(train_frame_nums)) and (f < max(train_frame_nums))) or
+                           ((abs(min(train_frame_nums) - f) <= num_extrapolation_frames) or (abs(f - max(train_frame_nums)) <= num_extrapolation_frames))
+                           ]
+        validation_frame_nums = test_frame_nums[::len(test_frame_nums)//len(train_frame_nums)]
     elif train_views_density == 'dense':
-        test_frame_nums = list(range(0, 50, 5))
+        test_frame_nums = list(range(5, 50, 10))
         train_frame_nums = list(set(range(50)) - set(test_frame_nums))
+        validation_frame_nums = test_frame_nums.copy()
     else:
         raise RuntimeError(f'Unknown train views density: {train_views_density}')
-    validation_frame_nums = test_frame_nums[::len(test_frame_nums)//5][1:4]
 
     set_dirpath = database_dirpath / f'train_test_sets/set{set_num:02}'
     set_dirpath.mkdir(parents=True, exist_ok=True)
@@ -84,6 +90,7 @@ def demo1():
         'scene_nums': [0, 1, 3, 4, 6],
         'train_views_density': 'sparse',
         'num_train_frames': 2,
+        'num_extrapolation_frames': 5,
     }
     create_train_test_set(configs)
 
@@ -93,6 +100,7 @@ def demo1():
         'scene_nums': [0, 1, 3, 4, 6],
         'train_views_density': 'sparse',
         'num_train_frames': 3,
+        'num_extrapolation_frames': 5,
     }
     create_train_test_set(configs)
 
@@ -102,6 +110,7 @@ def demo1():
         'scene_nums': [0, 1, 3, 4, 6],
         'train_views_density': 'sparse',
         'num_train_frames': 4,
+        'num_extrapolation_frames': 5,
     }
     create_train_test_set(configs)
     return
