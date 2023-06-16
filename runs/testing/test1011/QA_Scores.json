@@ -1,0 +1,20 @@
+{
+    "predicted_frames": {
+        "RMSE02": 35.6765,
+        "PSNR02": 17.5668,
+        "SSIM02": 0.5529,
+        "LPIPS02": 0.3899,
+        "MaskedRMSE02": 28.4574,
+        "MaskedPSNR02": 19.5697,
+        "MaskedSSIM02": 0.6501,
+        "MaskedLPIPS02": 0.2688
+    },
+    "predicted_depths": {
+        "DepthRMSE02": 37.2975,
+        "DepthMAE02": 0.2777,
+        "DepthSROCC02": 0.7531,
+        "MaskedDepthRMSE02": 23.8599,
+        "MaskedDepthMAE02": 0.142,
+        "MaskedDepthSROCC02": 0.848
+    }
+}
