@@ -9,7 +9,14 @@
     "qa_masks_dirname": "VM02",
     "resolution_suffix": "_down4",
     "scene_names": [
-        "leaves"
+        "fern",
+        "flower",
+        "fortress",
+        "horns",
+        "leaves",
+        "orchids",
+        "room",
+        "trex"
     ],
     "device": [
         0

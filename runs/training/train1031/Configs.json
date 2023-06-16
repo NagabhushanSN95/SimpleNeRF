@@ -9,7 +9,14 @@
         "data_preprocessor_name": "DataPreprocessor01",
         "train_set_num": 4,
         "scene_names": [
-            "fern"
+            "fern",
+            "flower",
+            "fortress",
+            "horns",
+            "leaves",
+            "orchids",
+            "room",
+            "trex"
         ],
         "resolution_suffix": "_down4",
         "recenter_camera_poses": true,
