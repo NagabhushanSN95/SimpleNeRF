@@ -2,7 +2,7 @@
 # Computes visibility mask for test frames based on PoseWarping. Indicates whether a pixel in test view is visible in
 # each of the training view or not. Uses depth given by dense input NeRF
 # Author: Nagabhushan S N
-# Last Modified: 25/04/2023
+# Last Modified: 15/06/2023
 
 import json
 import time
