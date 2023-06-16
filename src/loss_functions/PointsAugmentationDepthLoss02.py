@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # Depth MSE loss function between Main Coarse NeRF and Points Augmentation. Reprojection error (patch-wise) is employed
 # to determine the more accurate depth estimate.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 import torch

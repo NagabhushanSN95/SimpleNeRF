@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Common trainer across datasets.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 import datetime

@@ -1,6 +1,6 @@
 # Shree KRISHNAYa Namaha
 # Preprocesses data for NeRF, MipNeRF, Colmap sparse depth, dense depth, visibility prior.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 from typing import Optional, Union, List

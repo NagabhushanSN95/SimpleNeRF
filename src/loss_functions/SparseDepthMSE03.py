@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # MSE loss function on sparse depth for views augmented model.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 from pathlib import Path

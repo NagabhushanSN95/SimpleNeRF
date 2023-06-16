@@ -1,6 +1,6 @@
 # Shree KRISHNya Namaha
 # Some common utilities
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 

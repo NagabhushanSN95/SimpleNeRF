@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # Loss on MLP predicted visibility guided by visibility computed based on MLP predicted sigma and vice-versa.
 # Imposed on sparse depth pixels also.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 from pathlib import Path

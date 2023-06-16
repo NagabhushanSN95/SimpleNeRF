@@ -1,7 +1,7 @@
 # Shree KRISHNAya Namaha
 # Uses every 8th frame as the test frame as per the usual convention. Among the remaining frames, divides them into
 # n+1 groups and picks n frames at the intersections
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 import datetime

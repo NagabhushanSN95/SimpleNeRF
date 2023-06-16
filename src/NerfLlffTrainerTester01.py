@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Runs both training and testing on NeRF-LLFF dataset.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 import datetime

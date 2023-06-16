@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Computes visibility mask. A pixel is marked as visible if PoseWarping marks it as visible and depth matches.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Last Modified: 15/06/2023
 import json
 import time
