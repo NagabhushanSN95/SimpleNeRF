@@ -1,0 +1,10 @@
+{
+    "Tester": "TrainerTester01_NeRF_NerfLlff/Tester01",
+    "test_num": 1001,
+    "test_set_num": 1,
+    "train_num": 1001,
+    "model_name": "Model_Iter300000.tar",
+    "database_name": "NeRF_LLFF",
+    "database_dirpath": "NeRF_LLFF/Data",
+    "device": "gpu0"
+}

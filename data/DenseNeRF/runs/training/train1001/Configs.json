@@ -1,0 +1,74 @@
+{
+    "trainer": "TrainerTester01_NeRF_NerfLlff/Trainer01",
+    "train_num": 1001,
+    "database": "NeRF_LLFF",
+    "database_dirpath": "Databases/NeRF_LLFF/Data",
+    "data_loader": {
+        "data_loader_name": "NerfLlffDataLoader01",
+        "data_preprocessor_name": "NeRFDataPreprocessor01",
+        "train_set_num": 1,
+        "scene_ids": [
+            "fern",
+            "flower",
+            "fortress",
+            "horns",
+            "leaves",
+            "orchids",
+            "room",
+            "trex"
+        ],
+        "resolution_suffix": "_down4",
+        "recenter_camera_poses": true,
+        "bd_factor": 0.75,
+        "spherify": false,
+        "ndc": true,
+        "batching": true,
+        "downsampling_factor": 1,
+        "num_rays": 1024,
+        "precrop_fraction": 1,
+        "precrop_iterations": -1
+    },
+    "model": {
+        "name": "NeRF01",
+        "use_coarse_mlp": true,
+        "use_fine_mlp": true,
+        "num_samples_coarse": 64,
+        "num_samples_fine": 128,
+        "chunk": 4096,
+        "lindisp": false,
+        "points_positional_encoding_degree": 10,
+        "views_positional_encoding_degree": 4,
+        "netchunk": 16384,
+        "netdepth_coarse": 8,
+        "netdepth_fine": 8,
+        "netwidth_coarse": 256,
+        "netwidth_fine": 256,
+        "perturb": true,
+        "raw_noise_std": 1.0,
+        "use_view_dirs": true,
+        "view_dependent_rgb": true,
+        "white_bkgd": false
+    },
+    "losses": [
+        {
+            "name": "NeRF_MSE01",
+            "weight": 1
+        }
+    ],
+    "optimizer": {
+        "lr_decayer_name": "NeRFLearningRateDecayer01",
+        "lr_initial": 0.0005,
+        "lr_decay": 250,
+        "beta1": 0.9,
+        "beta2": 0.999
+    },
+    "resume_training": true,
+    "num_iterations": 300000,
+    "validation_interval": 500000,
+    "num_validation_iterations": 10,
+    "sample_save_interval": 500000,
+    "model_save_interval": 25000,
+    "mixed_precision_training": false,
+    "seed": 740,
+    "device": "gpu0"
+}
