@@ -108,7 +108,7 @@ def start_generation(gen_configs: dict):
     dense_nerf_dirpath = root_dirpath / gen_configs['dense_nerf_dirpath']
     depth_dirpath = root_dirpath / gen_configs['depth_dirpath']
 
-    output_dirpath = database_dirpath / f"test/visibility_masks/VSL001_VM{gen_configs['gen_num']:02}"
+    output_dirpath = database_dirpath / f"test/visibility_masks/VM{gen_configs['gen_num']:02}"
     output_dirpath.mkdir(parents=True, exist_ok=True)
     save_configs(output_dirpath, gen_configs)
 
