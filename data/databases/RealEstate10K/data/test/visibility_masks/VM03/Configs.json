@@ -1,0 +1,10 @@
+{
+    "generator": "VisibilityMask01_RealEstate",
+    "gen_num": 3,
+    "gen_set_num": 3,
+    "database_name": "RealEstate10K",
+    "database_dirpath": "RealEstate10K/data",
+    "dense_nerf_dirpath": "data/DenseNeRF/runs/training/train0001",
+    "depth_dirpath": "data/DenseNeRF/runs/testing/test0001",
+    "depth_error_threshold": 0.05
+}
