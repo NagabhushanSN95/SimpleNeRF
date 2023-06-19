@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # A Factory method that returns a Learning Rate Decayer
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 import importlib.util

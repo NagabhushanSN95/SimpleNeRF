@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Predicts sparse depth from the given images
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 import os

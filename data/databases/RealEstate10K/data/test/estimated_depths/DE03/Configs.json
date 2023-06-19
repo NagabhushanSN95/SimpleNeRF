@@ -1,0 +1,7 @@
+{
+    "generator": "DepthEstimator01_RealEstate",
+    "gen_num": 13,
+    "gen_set_num": 13,
+    "database_name": "RealEstate10K",
+    "database_dirpath": "RealEstate10K/data"
+}

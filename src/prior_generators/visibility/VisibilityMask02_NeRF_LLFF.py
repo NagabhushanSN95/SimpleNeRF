@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Computes visibility weights/masks for frames.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 import datetime
@@ -230,7 +230,7 @@ def start_generation(gen_configs: dict):
     root_dirpath = Path('../../../')
     database_dirpath = root_dirpath / 'data/databases' / gen_configs['database_dirpath']
 
-    output_dirpath = database_dirpath / f"all/visibility_masks/VW{gen_configs['gen_num']:02}"
+    output_dirpath = database_dirpath / f"all/visibility_prior/VW{gen_configs['gen_num']:02}"
     output_dirpath.mkdir(parents=True, exist_ok=True)
     save_configs(output_dirpath, gen_configs)
 

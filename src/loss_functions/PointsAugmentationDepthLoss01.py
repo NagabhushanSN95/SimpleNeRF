@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Depth MSE loss function between Main Coarse NeRF and Points Augmentation.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 import torch

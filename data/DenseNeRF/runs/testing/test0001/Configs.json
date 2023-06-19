@@ -1,0 +1,10 @@
+{
+    "Tester": "TrainerTester01_NeRF_RealEstate/Tester01",
+    "test_num": 1,
+    "test_set_num": 1,
+    "train_num": 1,
+    "model_name": "Model_Iter300000.tar",
+    "database_name": "RealEstate10K",
+    "database_dirpath": "RealEstate10K/Data",
+    "device": "gpu0"
+}

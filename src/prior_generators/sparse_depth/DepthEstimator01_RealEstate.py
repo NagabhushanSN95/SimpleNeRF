@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Estimates depth on RE10K scenes
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 import datetime

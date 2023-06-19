@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # PSNR measure between predicted frames and ground truth frames
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 import argparse

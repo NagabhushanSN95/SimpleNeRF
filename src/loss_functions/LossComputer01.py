@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Computes all specified losses by calling appropriate functions
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 import importlib.util

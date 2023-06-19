@@ -1,5 +1,5 @@
 {
-    "trainer": "RealEstateTrainerTester05/Trainer04",
+    "trainer": "RealEstateTrainerTester01/Trainer01",
     "train_num": 31,
     "description": "Main Model: 4 views",
     "database": "RealEstate10K",
@@ -29,8 +29,10 @@
         "name": "SimpleNeRF01",
         "coarse_mlp": {
             "num_samples": 64,
-            "netdepth": 8,
-            "netwidth": 256,
+            "points_net_depth": 8,
+            "views_net_depth": 1,
+            "points_net_width": 256,
+            "views_net_width": 128,
             "points_positional_encoding_degree": 10,
             "views_positional_encoding_degree": 4,
             "use_view_dirs": true,
@@ -39,8 +41,10 @@
         },
         "fine_mlp": {
             "num_samples": 128,
-            "netdepth": 8,
-            "netwidth": 256,
+            "points_net_depth": 8,
+            "views_net_depth": 1,
+            "points_net_width": 256,
+            "views_net_width": 128,
             "points_positional_encoding_degree": 10,
             "views_positional_encoding_degree": 4,
             "use_view_dirs": true,
@@ -49,8 +53,10 @@
         },
         "points_augmentation": {
             "coarse_mlp": {
-                "netdepth": 8,
-                "netwidth": 256,
+                "points_net_depth": 8,
+                "views_net_depth": 1,
+                "points_net_width": 256,
+                "views_net_width": 128,
                 "points_positional_encoding_degree": 10,
                 "points_sigma_positional_encoding_degree": 3,
                 "views_positional_encoding_degree": 4,
@@ -61,8 +67,10 @@
         },
         "views_augmentation": {
             "coarse_mlp": {
-                "netdepth": 8,
-                "netwidth": 256,
+                "points_net_depth": 8,
+                "views_net_depth": 1,
+                "points_net_width": 256,
+                "views_net_width": 128,
                 "points_positional_encoding_degree": 10,
                 "use_view_dirs": false,
                 "view_dependent_rgb": false,
@@ -102,7 +110,7 @@
             "weight": 0.1
         },
         {
-            "name": "PointsAugmentationDepthMSE02",
+            "name": "PointsAugmentationDepthLoss02",
             "iter_weights": {
                 "0": 0,
                 "10000": 0.1
@@ -114,7 +122,7 @@
             ]
         },
         {
-            "name": "ViewsAugmentationDepthMSE02",
+            "name": "ViewsAugmentationDepthLoss02",
             "iter_weights": {
                 "0": 0,
                 "10000": 0.1

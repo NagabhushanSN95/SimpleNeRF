@@ -1,0 +1,11 @@
+{
+    "generator": "VisibilityMask02_NeRF_LLFF",
+    "gen_num": 3,
+    "gen_set_num": 3,
+    "database_name": "NeRF_LLFF",
+    "database_dirpath": "NeRF_LLFF/data",
+    "resolution_suffix": "_down4",
+    "dense_nerf_dirpath": "data/DenseNeRF/runs/training/train1001",
+    "depth_dirpath": "data/DenseNeRF/runs/testing/test1001",
+    "depth_error_threshold": 0.05
+}

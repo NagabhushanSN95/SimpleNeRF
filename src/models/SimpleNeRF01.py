@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # NeRF that supports points and views augmentations.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N, Adithyan K V
 # Last Modified: 15/06/2023
 
 import numpy
@@ -589,7 +589,7 @@ class MLP(torch.nn.Module):
         )
         if self.view_dep_outputs:
             self.views_linears = torch.nn.ModuleList(
-            [torch.nn.Linear(self.views_input_dim + self.Wv, self.Wv)] +
+            [torch.nn.Linear(self.views_input_dim + self.Wp, self.Wv)] +
             [torch.nn.Linear(self.Wv, self.Wv) for _ in range(self.Dv - 1)]
             )
 
@@ -604,7 +604,7 @@ class MLP(torch.nn.Module):
 
         self.pts_output_linear = torch.nn.Linear(self.Wp, pts_output_dim)
         if self.view_dep_outputs:
-            self.feature_linear = torch.nn.Linear(self.Wp, self.Wv)
+            self.feature_linear = torch.nn.Linear(self.Wp, self.Wp)
             self.views_output_linear = torch.nn.Linear(self.Wv, views_output_dim)
         return
 

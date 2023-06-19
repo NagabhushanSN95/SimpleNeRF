@@ -2,7 +2,7 @@
 # Run this file first to select videos to be downloaded. Then run DataExtractor to extract the data.
 # It allows choosing a percentage of videos to contain primarily motion in x or y direction and remaining videos with
 # arbitrary motion.
-# Author: Nagabhushan S N
+# Authors: Nagabhushan S N
 # Modified: 12/01/2022
 
 import datetime
