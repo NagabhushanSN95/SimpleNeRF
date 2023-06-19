@@ -1,4 +1,2 @@
-- decide on which loss function to release
-- update Last Modified, authors
-- clean up RE10K and DTU database_utils
-- Change no-reprojection losses to ndc depth
+- decide on which loss function to release: w/ or w/o ndc
+- clean up RE10K database_utils
