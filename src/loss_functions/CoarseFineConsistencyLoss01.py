@@ -20,7 +20,6 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
         self.loss_configs = loss_configs
         self.coarse_mlp_needed = 'coarse_mlp' in self.configs['model']
         self.fine_mlp_needed = 'fine_mlp' in self.configs['model']
-        self.ndc = self.configs['data_loader']['ndc']
         return
 
     def compute_loss(self, input_dict: dict, output_dict: dict, return_loss_maps: bool = True):
@@ -34,12 +33,8 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
             }
             return loss_dict
 
-        if not self.ndc:
-            depth_coarse = output_dict['depth_coarse']
-            depth_fine = output_dict['depth_fine']
-        else:
-            depth_coarse = output_dict['depth_ndc_coarse']
-            depth_fine = output_dict['depth_ndc_fine']
+        depth_coarse = output_dict['depth_coarse']
+        depth_fine = output_dict['depth_fine']
 
         loss_map = torch.square(depth_coarse - depth_fine)
         total_loss = torch.mean(loss_map)

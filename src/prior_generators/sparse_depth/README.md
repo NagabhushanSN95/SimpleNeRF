@@ -4,7 +4,6 @@ Run the following files to generate sparse depth priors for all the three datase
 ```shell
 python DepthEstimator01_RealEstate.py
 python DepthEstimator02_NeRF_LLFF.py
-python DepthEstimator05_DTU.py
 ```
 
 

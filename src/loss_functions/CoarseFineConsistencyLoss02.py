@@ -23,7 +23,6 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
         self.coarse_mlp_needed = 'coarse_mlp' in self.configs['model']
         self.fine_mlp_needed = 'fine_mlp' in self.configs['model']
         self.sparse_depth_needed = 'sparse_depth' in self.configs['data_loader']
-        self.ndc = self.configs['data_loader']['ndc']
         self.px, self.py = self.loss_configs['patch_size']
         self.hpx, self.hpy = [x // 2 for x in self.loss_configs['patch_size']]
         self.rmse_threshold = self.loss_configs['rmse_threshold']
@@ -41,10 +40,6 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
         rays_d = input_dict['rays_d']
         depths_coarse = output_dict['depth_coarse']
         depths_fine = output_dict['depth_fine']
-        depths_coarse_ndc, depths_fine_ndc = None, None
-        if self.ndc:
-            depths_coarse_ndc = output_dict['depth_ndc_coarse']
-            depths_fine_ndc = output_dict['depth_ndc_fine']
         gt_poses = input_dict['common_data']['poses']  # (num_views, 4, 4)
         gt_images = input_dict['common_data']['images']
         intrinsics = input_dict['common_data']['intrinsics']
@@ -53,8 +48,8 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
         indices_mask_sd = input_dict.get('indices_mask_sparse_depth', None)
         pixel_ids = input_dict['pixel_id'].long()
 
-        loss = self.compute_depth_loss(depths_coarse, depths_fine, depths_coarse_ndc, depths_fine_ndc,
-                                       indices_mask_nerf, indices_mask_sd, rays_o, rays_d, gt_poses, gt_images,
+        loss = self.compute_depth_loss(depths_coarse, depths_fine, indices_mask_nerf, indices_mask_sd,
+                                       rays_o, rays_d, gt_poses, gt_images,
                                        pixel_ids, intrinsics, resolution, return_loss_maps)
         total_loss += loss['loss_value']
         if return_loss_maps:
@@ -68,19 +63,19 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
             loss_dict['loss_maps'] = loss_maps
         return loss_dict
 
-    def compute_depth_loss(self, depth_coarse, depth_fine, depth_coarse_ndc, depth_fine_ndc, indices_mask_nerf, indices_mask_sd,
+    def compute_depth_loss(self, depth_coarse, depth_fine, indices_mask_nerf, indices_mask_sd,
                            rays_o, rays_d, gt_poses, gt_images, pixel_ids, intrinsics, resolution,
                            return_loss_maps: bool) -> dict:
         total_loss = 0
 
         loss_nerf, loss_map_nerf_coarse, loss_map_nerf_fine = self.compute_loss_nerf(
-            depth_coarse, depth_fine, depth_coarse_ndc, depth_fine_ndc, indices_mask_nerf,
+            depth_coarse, depth_fine, indices_mask_nerf,
             rays_o, rays_d, gt_poses, gt_images, pixel_ids, intrinsics, resolution
         )
         total_loss += loss_nerf
 
         if self.sparse_depth_needed:
-            loss_sd, loss_map_sd_coarse = self.compute_loss_sd(depth_coarse, depth_fine, depth_coarse_ndc, depth_fine_ndc, indices_mask_sd)
+            loss_sd, loss_map_sd_coarse = self.compute_loss_sd(depth_coarse, depth_fine, indices_mask_sd)
             total_loss += loss_sd
 
         loss_dict = {
@@ -95,7 +90,7 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
                 loss_dict['loss_maps'][f'{this_filename}_coarse'] += loss_map_sd_coarse
         return loss_dict
 
-    def compute_loss_nerf(self, depth1, depth2, depth1_ndc, depth2_ndc, indices_mask_nerf, rays_o, rays_d, gt_poses, gt_images,
+    def compute_loss_nerf(self, depth1, depth2, indices_mask_nerf, rays_o, rays_d, gt_poses, gt_images,
                           pixel_ids, intrinsics, resolution) -> tuple[Tensor, Tensor, Tensor]:
         """
         Computes the loss for nerf samples (and not for sparse_depth or any other samples)
@@ -106,8 +101,6 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
 
         :param depth1:
         :param depth2:
-        :param depth1_ndc:
-        :param depth2_ndc:
         :param indices_mask_nerf:
         :param rays_o:
         :param rays_d:
@@ -125,9 +118,6 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
         rays_d = rays_d[indices_mask_nerf]
         depth1 = depth1[indices_mask_nerf]
         depth2 = depth2[indices_mask_nerf]
-        if self.ndc:
-            depth1_ndc = depth1_ndc[indices_mask_nerf]
-            depth2_ndc = depth2_ndc[indices_mask_nerf]
 
         gt_origins = gt_poses[:, :3, 3]
         distances = torch.sqrt(torch.sum(torch.square(gt_origins[image_ids].unsqueeze(1).repeat([1, gt_origins.shape[0], 1]) - gt_origins), dim=2))
@@ -176,23 +166,17 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
         mask2 = ((rmse2 < rmse1) | (~valid_mask_1b)) & (rmse2 < self.rmse_threshold) & valid_mask_2b & valid_mask_a
 
         # depth_mse1 is loss on depth1; depth_mse2 is loss on depth2
-        if not self.ndc:
-            depth_mse1, depth_mse_map1 = self.compute_depth_mse(depth1, depth2.detach(), mask2)  # (nr, )
-            depth_mse2, depth_mse_map2 = self.compute_depth_mse(depth2, depth1.detach(), mask1)
-        else:
-            depth_mse1, depth_mse_map1 = self.compute_depth_mse(depth1_ndc, depth2_ndc.detach(), mask2)  # (nr, )
-            depth_mse2, depth_mse_map2 = self.compute_depth_mse(depth2_ndc, depth1_ndc.detach(), mask1)
+        depth_mse1, depth_mse_map1 = self.compute_depth_mse(depth1, depth2.detach(), mask2)  # (nr, )
+        depth_mse2, depth_mse_map2 = self.compute_depth_mse(depth2, depth1.detach(), mask1)
         loss = depth_mse1 + depth_mse2
         return loss, depth_mse_map1, depth_mse_map2
 
-    def compute_loss_sd(self, depths_coarse: Tensor, depths_fine: Tensor, depths_coarse_ndc: Tensor, depths_fine_ndc: Tensor, indices_mask_sd: Tensor)\
+    def compute_loss_sd(self, depths_coarse: Tensor, depths_fine: Tensor, indices_mask_sd: Tensor)\
             -> tuple[Tensor, Tensor]:
         """
         Since the fine model is supervised by sparse depth, we assume fine depth is correct and use it to supervise coarse depth
         :param depths_coarse:
         :param depths_fine:
-        :param depths_coarse_ndc:
-        :param depths_fine_ndc:
         :param indices_mask_sd:
         :return:
         """
@@ -200,14 +184,8 @@ class CoarseFineConsistencyLoss(LossFunctionParent):
             return 0, 0
         depths_coarse = depths_coarse[indices_mask_sd]
         depths_fine = depths_fine[indices_mask_sd]
-        if self.ndc:
-            depths_coarse_ndc = depths_coarse_ndc[indices_mask_sd]
-            depths_fine_ndc = depths_fine_ndc[indices_mask_sd]
 
-        if not self.ndc:
-            loss, loss_map = self.compute_depth_mse(depths_coarse, depths_fine.detach())
-        else:
-            loss, loss_map = self.compute_depth_mse(depths_coarse_ndc, depths_fine_ndc.detach())
+        loss, loss_map = self.compute_depth_mse(depths_coarse, depths_fine.detach())
         return loss, loss_map
 
     @classmethod

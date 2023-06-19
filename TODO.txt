@@ -1,7 +1,1 @@
-- decide on which loss function to release
-- update Last Modified, authors
-- add QA scores files
-- add gen configs
 - clean up RE10K and DTU database_utils
-- add mask generation code
-- Change no-reprojection losses to ndc depth

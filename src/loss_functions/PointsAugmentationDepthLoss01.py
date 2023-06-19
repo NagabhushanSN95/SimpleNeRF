@@ -22,7 +22,6 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
         self.fine_mlp_needed = 'fine_mlp' in self.configs['model']
         self.augmented_coarse_mlp_needed = 'coarse_mlp' in self.configs['model']['points_augmentation']
         self.augmented_fine_mlp_needed = 'fine_mlp' in self.configs['model']['points_augmentation']
-        self.ndc = self.configs['data_loader']['ndc']
         return
 
     def compute_loss(self, input_dict: dict, output_dict: dict, return_loss_maps: bool = False):
@@ -30,24 +29,16 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
         loss_maps = {}
 
         if self.coarse_mlp_needed and self.augmented_coarse_mlp_needed:
-            if not self.ndc:
-                depth_coarse_main = output_dict['depth_coarse']
-                depth_coarse_aug = output_dict['points_augmentation_depth_coarse']
-            else:
-                depth_coarse_main = output_dict['depth_ndc_coarse']
-                depth_coarse_aug = output_dict['points_augmentation_depth_ndc_coarse']
+            depth_coarse_main = output_dict['depth_coarse']
+            depth_coarse_aug = output_dict['points_augmentation_depth_coarse']
             loss_coarse = self.compute_depth_loss(depth_coarse_main, depth_coarse_aug, return_loss_maps)
             total_loss += loss_coarse['loss_value']
             if return_loss_maps:
                 loss_maps = LossUtils01.update_loss_map_dict(loss_maps, loss_coarse['loss_maps'], suffix='coarse')
 
         if self.fine_mlp_needed and self.augmented_fine_mlp_needed:
-            if not self.ndc:
-                depth_fine_main = output_dict['depth_fine']
-                depth_fine_aug = output_dict['points_augmentation_depth_fine']
-            else:
-                depth_fine_main = output_dict['depth_ndc_fine']
-                depth_fine_aug = output_dict['points_augmentation_depth_ndc_fine']
+            depth_fine_main = output_dict['depth_fine']
+            depth_fine_aug = output_dict['points_augmentation_depth_fine']
             loss_fine = self.compute_depth_loss(depth_fine_main, depth_fine_aug, return_loss_maps)
             total_loss += loss_fine['loss_value']
             if return_loss_maps:

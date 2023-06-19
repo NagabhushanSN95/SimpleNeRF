@@ -4,5 +4,4 @@ Run the following files to generate sparse depth priors for all the three datase
 ```shell
 python VisibilityMask01_RealEstate.py
 python VisibilityMask02_NeRF_LLFF.py
-python VisibilityMask05_DTU.py
 ```

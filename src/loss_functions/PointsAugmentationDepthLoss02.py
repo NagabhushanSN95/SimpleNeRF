@@ -24,7 +24,6 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
         self.fine_mlp_needed = 'fine_mlp' in self.configs['model']
         self.augmented_coarse_mlp_needed = 'coarse_mlp' in self.configs['model']['points_augmentation']
         self.augmented_fine_mlp_needed = 'fine_mlp' in self.configs['model']['points_augmentation']
-        self.ndc = self.configs['data_loader']['ndc']
         self.px, self.py = self.loss_configs['patch_size']
         self.hpx, self.hpy = [x // 2 for x in self.loss_configs['patch_size']]
         self.rmse_threshold = self.loss_configs['rmse_threshold']
@@ -45,12 +44,7 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
         if self.coarse_mlp_needed and self.augmented_coarse_mlp_needed:
             depth_coarse_main = output_dict['depth_coarse']
             depth_coarse_aug = output_dict['points_augmentation_depth_coarse']
-            depth_coarse_main_ndc, depth_coarse_aug_ndc = None, None
-            if self.ndc:
-                depth_coarse_main_ndc = output_dict['depth_ndc_coarse']
-                depth_coarse_aug_ndc = output_dict['points_augmentation_depth_ndc_coarse']
-            loss_coarse = self.compute_depth_loss(depth_coarse_main, depth_coarse_aug,
-                                                  depth_coarse_main_ndc, depth_coarse_aug_ndc, indices_mask_nerf,
+            loss_coarse = self.compute_depth_loss(depth_coarse_main, depth_coarse_aug, indices_mask_nerf,
                                                   rays_o, rays_d, gt_poses, gt_images, pixel_ids, intrinsics,
                                                   resolution, return_loss_maps)
             total_loss += loss_coarse['loss_value']
@@ -60,12 +54,7 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
         if self.fine_mlp_needed and self.augmented_fine_mlp_needed:
             depth_fine_main = output_dict['depth_fine']
             depth_fine_aug = output_dict['points_augmentation_depth_fine']
-            depth_fine_main_ndc, depth_fine_aug_ndc = None, None
-            if self.ndc:
-                depth_fine_main_ndc = output_dict['depth_ndc_fine']
-                depth_fine_aug_ndc = output_dict['points_augmentation_depth_ndc_fine']
-            loss_fine = self.compute_depth_loss(depth_fine_main, depth_fine_aug,
-                                                depth_fine_main_ndc, depth_fine_aug_ndc, indices_mask_nerf,
+            loss_fine = self.compute_depth_loss(depth_fine_main, depth_fine_aug, indices_mask_nerf,
                                                 rays_o, rays_d, gt_poses, gt_images, pixel_ids, intrinsics,
                                                 resolution, return_loss_maps)
             total_loss += loss_fine['loss_value']
@@ -86,12 +75,12 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
                 loss_dict['loss_maps'][f'{this_filename}_fine_augmented'] = fine_loss_maps[f'{this_filename}_2']
         return loss_dict
 
-    def compute_depth_loss(self, depth1, depth2, depth1_ndc, depth2_ndc, indices_mask_nerf,
+    def compute_depth_loss(self, depth1, depth2, indices_mask_nerf,
                            rays_o, rays_d, gt_poses, gt_images, pixel_ids, intrinsics, resolution,
                            return_loss_maps: bool) -> dict:
         total_loss = 0
 
-        loss_nerf, nerf_mse_map1, nerf_mse_map2 = self.compute_loss_nerf(depth1, depth2, depth1_ndc, depth2_ndc, indices_mask_nerf,
+        loss_nerf, nerf_mse_map1, nerf_mse_map2 = self.compute_loss_nerf(depth1, depth2, indices_mask_nerf,
                                                                          rays_o, rays_d, gt_poses, gt_images, pixel_ids,
                                                                          intrinsics, resolution)
         total_loss += loss_nerf
@@ -106,7 +95,7 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
             }
         return loss_dict
 
-    def compute_loss_nerf(self, depth1, depth2, depth1_ndc, depth2_ndc, indices_mask_nerf, rays_o, rays_d, gt_poses, gt_images,
+    def compute_loss_nerf(self, depth1, depth2, indices_mask_nerf, rays_o, rays_d, gt_poses, gt_images,
                           pixel_ids, intrinsics, resolution) -> tuple[Tensor, Tensor, Tensor]:
         """
         Computes the loss for nerf samples (and not for sparse_depth or any other samples)
@@ -117,8 +106,6 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
 
         :param depth1:
         :param depth2:
-        :param depth1_ndc:
-        :param depth2_ndc:
         :param indices_mask_nerf:
         :param rays_o:
         :param rays_d:
@@ -136,9 +123,6 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
         rays_d = rays_d[indices_mask_nerf]
         depth1 = depth1[indices_mask_nerf]
         depth2 = depth2[indices_mask_nerf]
-        if self.ndc:
-            depth1_ndc = depth1_ndc[indices_mask_nerf]
-            depth2_ndc = depth2_ndc[indices_mask_nerf]
 
         gt_origins = gt_poses[:, :3, 3]
         distances = torch.sqrt(torch.sum(torch.square(gt_origins[image_ids].unsqueeze(1).repeat([1, gt_origins.shape[0], 1]) - gt_origins), dim=2))
@@ -187,12 +171,8 @@ class PointsAugmentationDepthLoss(LossFunctionParent):
         mask2 = ((rmse2 < rmse1) | (~valid_mask_1b)) & (rmse2 < self.rmse_threshold) & valid_mask_2b & valid_mask_a
 
         # depth_mse1 is loss on depth1; depth_mse2 is loss on depth2
-        if not self.ndc:
-            depth_mse1, depth_mse_map1 = self.compute_depth_mse(depth1, depth2.detach(), mask2)  # (nr, )
-            depth_mse2, depth_mse_map2 = self.compute_depth_mse(depth2, depth1.detach(), mask1)
-        else:
-            depth_mse1, depth_mse_map1 = self.compute_depth_mse(depth1_ndc, depth2_ndc.detach(), mask2)  # (nr, )
-            depth_mse2, depth_mse_map2 = self.compute_depth_mse(depth2_ndc, depth1_ndc.detach(), mask1)
+        depth_mse1, depth_mse_map1 = self.compute_depth_mse(depth1, depth2.detach(), mask2)  # (nr, )
+        depth_mse2, depth_mse_map2 = self.compute_depth_mse(depth2, depth1.detach(), mask1)
         loss = depth_mse1 + depth_mse2
         return loss, depth_mse_map1, depth_mse_map2
 
