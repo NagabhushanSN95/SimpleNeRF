@@ -2,9 +2,9 @@
 Official code release accompanying the paper ["SimpleNeRF: Regularizing Sparse Input Neural Radiance Fields with Simpler Solutions"](https://nagabhushansn95.github.io/publications/2023/SimpleNeRF.html). All the published data is available [here](https://indianinstituteofscience-my.sharepoint.com/:f:/g/personal/nagabhushans_iisc_ac_in/EgLoheuOaDdBg9V1wX5QCTYBmSg-QOPXGxZ6wYEH6y6cjA?e=t1iLUY).
 
 ## Python Environment
-Environment details are available in `EnvironmentData/SimpleNeRF_GPU.yml`. The environment can be created using conda
+Environment details are available in `EnvironmentData/SimpleNeRF.yml`. The environment can be created using conda
 ```shell
-conda env create -f SimpleNeRF_GPU.yml
+conda env create -f SimpleNeRF.yml
 ```
 
 ## Set-up Databases
