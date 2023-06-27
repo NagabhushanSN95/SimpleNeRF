@@ -7,6 +7,11 @@ Environment details are available in `EnvironmentData/SimpleNeRF.yml`. The envir
 conda env create -f SimpleNeRF.yml
 ```
 
+## Add the source directory to PYTHONPATH
+```shell
+export PYTHONPATH=<ABSOLUTE_PATH_TO_SIMPLENERF_DIR>/src:$PYTHONPATH
+```
+
 ## Set-up Databases
 Please follow the instructions in [database_utils/README.md](src/database_utils/README.md) file to set up various databases. Instructions for custom databases are also included here.
 
