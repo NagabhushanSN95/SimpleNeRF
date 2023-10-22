@@ -1,5 +1,5 @@
 # SimpleNeRF
-Official code release accompanying the paper ["SimpleNeRF: Regularizing Sparse Input Neural Radiance Fields with Simpler Solutions"](https://nagabhushansn95.github.io/publications/2023/SimpleNeRF.html). All the published data is available [here](https://indianinstituteofscience-my.sharepoint.com/:f:/g/personal/nagabhushans_iisc_ac_in/EgLoheuOaDdBg9V1wX5QCTYBmSg-QOPXGxZ6wYEH6y6cjA?e=t1iLUY).
+Official code release accompanying the SIGGRPH Asia 2023 paper - ["SimpleNeRF: Regularizing Sparse Input Neural Radiance Fields with Simpler Solutions"](https://nagabhushansn95.github.io/publications/2023/SimpleNeRF.html). All the published data is available [here](https://indianinstituteofscience-my.sharepoint.com/:f:/g/personal/nagabhushans_iisc_ac_in/EgLoheuOaDdBg9V1wX5QCTYBmSg-QOPXGxZ6wYEH6y6cjA?e=t1iLUY).
 
 ## Python Environment
 Environment details are available in `EnvironmentData/SimpleNeRF.yml`. The environment can be created using conda
@@ -22,8 +22,10 @@ Please follow the instructions in [prior_generators/sparse_depth/README.md](src/
 ## Training and Inference
 The files `RealEstateTrainerTester01.py`, `NerfLlffTrainerTester01.py` contain the code for training, testing and quality assessment along with the configs for the respective databases.
 ```shell
+cd src/
 python RealEstateTrainerTester01.py
 python NerfLlffTrainerTester01.py
+cd ../
 ```
 
 ## Inference with Pre-trained Models
@@ -60,10 +62,10 @@ If you use this code for your research, please cite our paper
 @article{somraj2023SimpleNeRF,
     title = {{SimpleNeRF}: Regularizing Sparse Input Neural Radiance Fields with Simpler Solutions},
     author = {Somraj, Nagabhushan and Karanayil, Adithyan and Soundararajan, Rajiv},
-    booktitle = {ACM Special Interest Group on Computer Graphics and Interactive Techniques Asia (SIGGRAPH Asia)},
+    booktitle = {SIGGRAPH Asia},
     month = {December},
     year = {2023},
-    doi = {},
+    doi = {10.1145/3610548.3618188},
 }
 ```
 If you use outputs/results of SimpleNeRF model in your publication, please specify the version as well. The current version is 1.0.

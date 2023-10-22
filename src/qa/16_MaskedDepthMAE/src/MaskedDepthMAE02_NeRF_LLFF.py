@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Masked MAE measure between predicted depths and depths from dense input NeRF
-# Authors: Nagabhushan S N
+# Author: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 import argparse

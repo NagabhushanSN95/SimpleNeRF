@@ -1,6 +1,6 @@
 # Shree KRISHNAya Namaha
 # Creates poses using original video trajectory
-# Authors: Nagabhushan S N
+# Author: Nagabhushan S N
 # Last Modified: 15/06/2023
 
 import datetime

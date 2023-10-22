@@ -38,7 +38,7 @@ class NerfTester:
 
     def build_model(self):
         self.data_preprocessor = get_data_preprocessor(self.train_configs, mode='test', model_configs=self.model_configs)
-        self.model = get_model(self.train_configs, self.model_configs).to(self.device)
+        self.model = get_model(self.train_configs, self.model_configs)
         self.model = torch.nn.DataParallel(self.model, device_ids=self.test_configs['device'])
         return
 
