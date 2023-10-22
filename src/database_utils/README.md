@@ -1,63 +1,69 @@
 # Extracting Databases
 
 ## RealEstate-10K
-Currently, the code to extract RealEstate-10K dataset is not complete. This will be completed soon. In the meantime, please down the dataset following instructions at the [official webpage](https://google.github.io/realestate10k/download.html) and follow the instructions for [custom databases](#custom-databases).
-For camera extrinsincs, our [data-loader](../data_loaders/RealEstateDataLoader01.py) uses the same convention (world-to-camera in (x, -y, -z) format) as the original dataset for camera extrinsics. So you only need to copy the camera parameters to appropriate csv files (CameraIntrinsics.csv (9 columns per row) and CameraExtrinsics.csv (16 columns per row)) and the video frames to `rgb` folder.
+1. Download the dataset metadata from [here](https://google.github.io/realestate10k/download.html)
+   ```shell
+   cd data/databases/RealEstate10K
+   mkdir downloaded_data
+   cd downloaded_data
+   wget https://storage.cloud.google.com/realestate10k-public-files/RealEstate10K.tar.gz
+   cd ..
+   ```
 
-[//]: # (1. Download the dataset metadata from [here]&#40;https://google.github.io/realestate10k/download.html&#41;)
+2. Unzip the downloaded file
+   ```shell
+   mkdir unzipped_data
+   tar -xzvf downloaded_data/RealEstate10K.tar.gz -C unzipped_data/
+   cd ../../../
+   ```
 
-[//]: # (2. Remap the names to integers:)
+3. Obtain camera data of the five scenes used in ViP-NeRF
+   ```shell
+   cd src/database_utils/real_estate/data_organizers
+   python VideoNameMapper.py
+   ```
 
-[//]: # (```shell)
+4. Download and extract the data for the five scenes. This requires youtube-dl and ffmpeg to be installed.
+   ```shell
+   python DataExtractor01.py
+   cd ..
+   ```
 
-[//]: # (python VideoNameMapper.py)
+5. train/test configs are already provided in the github repository. In case you want to create them again:
+   ```shell
+   cd train_test_creators/
+   python TrainTestCreator01.py
+   python VideoPoseCreator01_Original.py
+   cd ..
+   ```
 
-[//]: # (```)
-
-[//]: # (3. We use the scenes from test set. Select the scenes to download:)
-
-[//]: # (```shell)
-
-[//]: # (python SceneSelector01.py)
-
-[//]: # (```)
-
-[//]: # (4. Download the selected scenes:)
-
-[//]: # (```shell)
-
-[//]: # (python DataExtractor01.py)
-
-[//]: # (```)
-
-[//]: # (5. Copy the downloaded scenes to `Data/databases/RealEstate10K/data/test/database_data`.)
-
-[//]: # (6. train/test configs are already provided in the github repository. In case you want to create them again: )
-
-[//]: # (```shell)
-
-[//]: # (python TrainTestCreator01.py)
-
-[//]: # (python VideoPoseCreator01_Original.py)
-
-[//]: # (```)
+6. Return to root directory
+```shell
+cd ../../../
+```
 
 ## NeRF-LLFF
 1. Download the [`nerf_llff_data.zip`](https://drive.google.com/file/d/16VnMcF1KJYxN9QId6TClMsZRahHNMW5g/view?usp=share_link) file from original release in google drive. Place the downloaded file at `Data/databases/NeRF_LLFF/data/all/nerf_llff_data.zip`.
+
 2. Run the data extractor file:
-```shell
-cd src/database_utils/nerf_llff/data_organizers/
-python DataExtractor01.py
-```
+   ```shell
+   cd src/database_utils/nerf_llff/data_organizers/
+   python DataExtractor01.py
+   cd ..
+   ```
+
 3. train/test configs are already provided in the github repository. In case you want to create them again: 
-```shell
-python TrainTestCreator01_UniformSparseSampling.py
-python VideoPoseCreator01_Spiral.py
-```
+   ```shell
+   cd train_test_creators/
+   python TrainTestCreator01_UniformSparseSampling.py
+   python VideoPoseCreator01_Spiral.py
+   cd ..
+   ```
+
 4. Return to root directory
-```shell
-cd ../../../../
-```
+   ```shell
+   cd ../../../
+   ```
 
 ## Custom Databases
 We use the Open CV convention: `(x, -y, -z)` world-to-camera format to store the camera poses. 
@@ -85,4 +91,4 @@ Example directory tree:
     |--train_test_sets
 ```
 
-Our code also requires a config file specify the train/validation/test images. Please look into [train-test-creators](real_estate_10k/train_test_creators/TrainTestCreator01.py) and replicate a similar file for your custom dataset.
+Our code also requires a config file specify the train/validation/test images. Please look into [train-test-creators](real_estate/train_test_creators/TrainTestCreator01.py) and replicate a similar file for your custom dataset.
