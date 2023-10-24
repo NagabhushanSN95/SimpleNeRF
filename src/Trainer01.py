@@ -478,7 +478,8 @@ def save_model_configs(output_dirpath: Path, configs: dict, filename: Optional[s
         with open(configs_path.as_posix(), 'r') as configs_file:
             old_configs = json.load(configs_file)
         if configs != old_configs:
-            raise RuntimeError(f'Configs mismatch while resuming training: {DeepDiff(old_configs, configs)}')
+            print(f'Configs mismatch while resuming training: {DeepDiff(old_configs, configs)}')
+            print(f'Start training afresh if resuming training from a saved checkpoint. Ignore if training afresh.')
     with open(configs_path.as_posix(), 'w') as configs_file:
         simplejson.dump(configs, configs_file, indent=4)
     return
