@@ -32,10 +32,9 @@ def copy_camera_data(unzipped_dirpath: Path, database_dirpath: Path):
 
 def demo1():
     root_dirpath = Path('../../../../data/databases/RealEstate10K/')
-    unzipped_dirpath = root_dirpath / 'unzipped_data'
+    unzipped_dirpath = root_dirpath / 'unzipped_data/RealEstate10K'
     database_dirpath = root_dirpath / 'data/test/database_data'
 
-    # extract_scene_data(unzipped_dirpath, extracted_dirpath, split_name='train')
     copy_camera_data(unzipped_dirpath, database_dirpath)
     return
 

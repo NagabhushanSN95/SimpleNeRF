@@ -3,6 +3,8 @@ data/**/estimated_depths/**/*.csv
 data/**/visibility_masks/**/*.png
 data/**/visibility_masks/**/*.npy
 data/**/*.zip
+data/databases/RealEstate10K/downloaded_data/RealEstate10K.tar.gz
+data/databases/RealEstate10K/unzipped_data/RealEstate10K/
 data/DenseNeRF/runs/**/training/train*/**/*.png
 data/DenseNeRF/runs/**/training/train*/**/*.npy
 data/DenseNeRF/runs/**/training/train*/**/*.npz
