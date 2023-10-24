@@ -1,17 +1,11 @@
 # Extracting Databases
 
 ## RealEstate-10K
-1. Download the dataset metadata from [here](https://google.github.io/realestate10k/download.html)
-   ```shell
-   cd data/databases/RealEstate10K
-   mkdir downloaded_data
-   cd downloaded_data
-   wget https://storage.cloud.google.com/realestate10k-public-files/RealEstate10K.tar.gz
-   cd ..
-   ```
+1. Download the dataset metadata from [here](https://google.github.io/realestate10k/download.html) and place it in `data/databases/RealEstate10K/downloaded_data/RealEstate10K.tar.gz`
 
 2. Unzip the downloaded file
    ```shell
+   cd data/databases/RealEstate10K
    mkdir unzipped_data
    tar -xzvf downloaded_data/RealEstate10K.tar.gz -C unzipped_data/
    cd ../../../
@@ -23,13 +17,14 @@
    python VideoNameMapper.py
    ```
 
-4. Download and extract the data for the five scenes. This requires youtube-dl and ffmpeg to be installed.
+4. Run the data extractor file. This requires [youtube-dl](https://github.com/ytdl-org/youtube-dl) and [ffmpeg](https://ffmpeg.org/download.html) to be installed.
    ```shell
    python DataExtractor01.py
    cd ..
    ```
+   If youtube-dl is not able to extract uploader-id, reinstall youtube-dl as suggested [here](https://stackoverflow.com/a/76409717/3337089).
 
-5. train/test configs are already provided in the github repository. In case you want to create them again:
+5. train/test configs are already provided in the repository. In case you want to create them again:
    ```shell
    cd train_test_creators/
    python TrainTestCreator01.py
@@ -52,7 +47,7 @@ cd ../../../
    cd ..
    ```
 
-3. train/test configs are already provided in the github repository. In case you want to create them again: 
+3. train/test configs are already provided in the repository. In case you want to create them again: 
    ```shell
    cd train_test_creators/
    python TrainTestCreator01_UniformSparseSampling.py
