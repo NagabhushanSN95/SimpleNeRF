@@ -1,5 +1,8 @@
 # SimpleNeRF
-Official code release accompanying the SIGGRPH Asia 2023 paper - ["SimpleNeRF: Regularizing Sparse Input Neural Radiance Fields with Simpler Solutions"](https://nagabhushansn95.github.io/publications/2023/SimpleNeRF.html). All the published data is available [here](https://indianinstituteofscience-my.sharepoint.com/:f:/g/personal/nagabhushans_iisc_ac_in/EgLoheuOaDdBg9V1wX5QCTYBmSg-QOPXGxZ6wYEH6y6cjA?e=t1iLUY).
+Official code release accompanying the SIGGRPH Asia 2023 paper - "SimpleNeRF: Regularizing Sparse Input Neural Radiance Fields with Simpler Solutions".
+
+* [Project Page](https://nagabhushansn95.github.io/publications/2023/SimpleNeRF.html)
+* [Published Data (OneDrive)](https://indianinstituteofscience-my.sharepoint.com/:f:/g/personal/nagabhushans_iisc_ac_in/EgLoheuOaDdBg9V1wX5QCTYBmSg-QOPXGxZ6wYEH6y6cjA?e=t1iLUY)
 
 ## Python Environment
 Environment details are available in `EnvironmentData/SimpleNeRF.yml`. The environment can be created using conda
@@ -29,7 +32,10 @@ cd ../
 ```
 
 ## Inference with Pre-trained Models
-The train configs are also provided in `runs/training/train****` folders for each of the scenes. Please download the trained models from [here](https://indianinstituteofscience-my.sharepoint.com/:f:/g/personal/nagabhushans_iisc_ac_in/EssGwn7AUh5AjT6wtbcnsp4B7QGHQ7-DAeAiBBdTBkwilg?e=GCZSAQ) and place them in the appropriate folders. Disable the train call in the [TrainerTester](src/RealEstateTrainerTester01.py#L340) files and run the respective files. This will run inference using the pre-trained models and also evaluate the synthesized images and reports the performance. To reproduce results from the paper, use the models trained for 50k iterations. For best results, use the models trained for more iterations.
+The train configs are also provided in `runs/training/train****` folders for each of the scenes. Please download the trained models from `runs/training` directory in the published data (link available at the top) and place them in the appropriate folders. Disable the train call in the [TrainerTester](src/RealEstateTrainerTester01.py#L340) files and run the respective files. This will run inference using the pre-trained models and also evaluate the synthesized images and reports the performance. To reproduce results from the paper, use the models trained for 50k iterations. For best results, use the models trained for more iterations.
+
+## Evaluation
+Evaluation of the rendered images will be automatically done after rendering the images. However, to compute depth based metrics and masked metrics, ground truth depth maps are needed. We obtain (pseudo) ground truth depth maps by training the vanilla NeRF with dense input views. Download these depth maps and visibility masks (for masked metrics) from `data` directory in the published data (link available at the top) and place them in the appropriate folders.
 
 ## License
 MIT License
