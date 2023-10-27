@@ -1,6 +1,10 @@
 # Extracting Databases
 
 ## RealEstate-10K
+
+> [!NOTE]
+> The images downloaded by the below steps are slightly different from the images we downloaded a couple of years back. So, evaluating the images rendered by the pre-trained models with the images downloaded using below steps gives poor scores. We are looking into the discrepancy. In the meantime, if you need to obtain the QA scores of our model on the RE10K dataset for the specified scenes, please re-train SimpleNeRF on the downloaded images.
+
 1. Download the dataset metadata from [here](https://google.github.io/realestate10k/download.html) and place it in `data/databases/RealEstate10K/downloaded_data/RealEstate10K.tar.gz`
 
 2. Unzip the downloaded file
