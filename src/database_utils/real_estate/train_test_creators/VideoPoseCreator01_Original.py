@@ -59,7 +59,7 @@ def save_video_poses(configs: dict):
 
     scene_nums = numpy.unique(train_videos_data['scene_num'])
     for scene_num in scene_nums:
-        trans_mats_path = root_dirpath / f'data/test/database_data/{scene_num:05}/CameraExtrinsics.csv'
+        trans_mats_path = database_dirpath / f'test/database_data/{scene_num:05}/CameraExtrinsics.csv'
         trans_mats = numpy.loadtxt(trans_mats_path.as_posix(), delimiter=',').reshape((-1, 4, 4))
         video_poses = create_video_poses(trans_mats)
         video_poses_flat = numpy.reshape(video_poses, (video_poses.shape[0], -1))

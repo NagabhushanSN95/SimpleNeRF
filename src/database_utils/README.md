@@ -10,7 +10,6 @@
 2. Unzip the downloaded file
    ```shell
    cd data/databases/RealEstate10K
-   mkdir unzipped_data
    tar -xzvf downloaded_data/RealEstate10K.tar.gz -C unzipped_data/
    cd ../../../
    ```
