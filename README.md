@@ -32,7 +32,7 @@ cd ../
 ```
 
 ## Inference with Pre-trained Models
-The train configs are also provided in `runs/training/train****` folders for each of the scenes. Please download the trained models from `runs/training` directory in the published data (link available at the top) and place them in the appropriate folders. Disable the train call in the [TrainerTester](src/RealEstateTrainerTester01.py#L457) files and run the respective files. This will run inference using the pre-trained models and also evaluate the synthesized images and reports the performance. To reproduce results from the paper, use the models trained for 50k iterations. For best results, use the models trained for more iterations.
+The train configs are also provided in `runs/training/train****` folders for each of the scenes. Please download the trained models from `runs/training` directory in the published data (link available at the top) and place them in the appropriate folders. Disable the train call in the [TrainerTester](src/RealEstateTrainerTester01.py#L457) files and run the respective files. This will run inference using the pre-trained models and also evaluate the synthesized images and reports the performance.
 
 ## Evaluation
 Evaluation of the rendered images will be automatically done after rendering the images. However, to compute depth based metrics and masked metrics, ground truth depth maps are needed. We obtain (pseudo) ground truth depth maps by training the vanilla NeRF with dense input views. Download these depth maps and visibility masks (for masked metrics) from `data` directory in the published data (link available at the top) and place them in the appropriate folders.
