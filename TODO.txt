@@ -1,1 +1,1 @@
-- clean up RE10K and DTU database_utils
+- clean up RE10K database_utils

@@ -4,6 +4,9 @@ Official code release accompanying the SIGGRPH Asia 2023 paper - "SimpleNeRF: Re
 * [Project Page](https://nagabhushansn95.github.io/publications/2023/SimpleNeRF.html)
 * [Published Data (OneDrive)](https://indianinstituteofscience-my.sharepoint.com/:f:/g/personal/nagabhushans_iisc_ac_in/EgLoheuOaDdBg9V1wX5QCTYBmSg-QOPXGxZ6wYEH6y6cjA?e=t1iLUY)
 
+> [!NOTE]
+> We have extended the idea of SimpleNeRF to TensoRF and ZipNeRF. The new repository is at [NagabhushanSN95/Simple-RF](https://github.com/NagabhushanSN95/Simple-RF).
+
 ## Python Environment
 Environment details are available in `EnvironmentData/SimpleNeRF.yml`. The environment can be created using conda
 ```shell

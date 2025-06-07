@@ -24,3 +24,4 @@ runs/**/testing/test*/**/*.mp4
 runs/**/testing/test*/**/*.npy
 runs/**/testing/test*/**/*.npz
 tmp/
+.idea/
